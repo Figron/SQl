@@ -5,9 +5,9 @@ GO
 CREATE SCHEMA TestSchema;
 GO
 CREATE TABLE TestSchema.TestTable
-(id INT NOT NULL,
-Name Varchar(20),
-isSold BIT,
+(ID INT NOT NULL,
+[Name] Varchar(20),
+IsSold BIT,
 InvoiceDate DATE);
 GO
 INSERT INTO TestSchema.TestTable
