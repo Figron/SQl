@@ -15,7 +15,6 @@ SELECT p.FirstName
 		SELECT e.JobTitle
 		FROM HumanResources.Employee AS e
 		WHERE p.BusinessEntityID = e.BusinessEntityID
-			AND e.JobTitle IS NOT NULL
 		) AS JobTitle
 FROM Person.Person AS p;
 GO
