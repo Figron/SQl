@@ -30,20 +30,12 @@ AS (
 SELECT e.BusinessEntityID
 	,e.NationalIdNumber
 	,e.JobTitle
-	,(
-		SELECT FirstName
-		FROM clt_pph
-		WHERE e.BusinessEntityID = BusinessEntityID
-		) AS FirstName
-	,(
-		SELECT LastName
-		FROM clt_pph
-		WHERE e.BusinessEntityID = BusinessEntityID
-		) AS LastName
-	,(
-		SELECT PhoneNumber
-		FROM clt_pp
-		WHERE e.BusinessEntityID = BusinessEntityID
-		) AS PhoneNumber
+	,clt_pph.FirstName
+	,clt_pph.LastName
+	,clt_pp.PhoneNumber
 FROM HumanResources.Employee AS e
+JOIN clt_pp
+	ON e.BusinessEntityID = clt_pp.BusinessEntityID
+JOIN clt_pph
+	ON e.BusinessEntityID = clt_pph.BusinessEntityID;
 
