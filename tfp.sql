@@ -47,12 +47,13 @@ GO
 
 CREATE PROCEDURE Person.uspSearchByName @name INT
 AS
+DECLARE @compare VARCHAR = '%' + @name + '%'
 SELECT p.BusinessEntityID
 	,p.FirstName
 	,p.LastName
 FROM Person.Person AS p
-WHERE p.FirstName LIKE '%' + @name + '%'
-	OR p.LastName LIKE '%' + @name + '%';
+WHERE p.FirstName LIKE @compare
+	OR p.LastName LIKE @compare;
 
 RETURN
 GO
