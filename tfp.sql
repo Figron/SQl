@@ -11,7 +11,6 @@ THROW 50000
 	,'You cant insert or update!'
 	,1
 
-ROLLBACK;
 GO
 
 CREATE TRIGGER notiier2 ON DATABASE
@@ -19,14 +18,13 @@ FOR ALTER_TABLE AS THROW 60000
 	,'You cant alter the table'
 	,1
 
-ROLLBACK;
 GO
 
 CREATE FUNCTION dbo.ufnConcatStrings (
-	@var1 VARCHAR
-	,@var2 VARCHAR
+	@var1 VARCHAR(100)
+	,@var2 VARCHAR(100)
 	)
-RETURNS VARCHAR
+RETURNS VARCHAR(200)
 AS
 BEGIN
 	RETURN CONCAT_WS('-', @var1, @var2)
@@ -40,8 +38,8 @@ RETURN (
 		SELECT e.*
 		FROM HumanResources.Employee AS e
 		JOIN HumanResources.EmployeeDepartmentHistory AS h
-			ON h.DepartmentID = @deptno
-			AND e.BusinessEntityID = h.BusinessEntityID
+			ON e.BusinessEntityID = h.BusinessEntityID
+			WHERE h.DepartmentID = @deptno
 		)
 GO
 
