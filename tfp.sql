@@ -41,20 +41,18 @@ RETURN (
 		FROM HumanResources.Employee AS e
 		JOIN HumanResources.EmployeeDepartmentHistory AS h
 			ON h.DepartmentID = @deptno
+			AND e.BusinessEntityID = h.BusinessEntityID
 		)
 GO
 
 CREATE PROCEDURE Person.uspSearchByName @name INT
-	,@BusinessEntityID INT OUTPUT
-	,@FirstName NVARCHAR OUTPUT
-	,@LastName NVARCHAR OUTPUT
 AS
-SELECT @BusinessEntityID = p.BusinessEntityID
-	,@FirstName = p.FirstName
-	,@LastName = p.LastName
+SELECT p.BusinessEntityID
+	,p.FirstName
+	,p.LastName
 FROM Person.Person AS p
-WHERE p.FirstName LIKE @name
-	OR p.LastName LIKE @name;
+WHERE p.FirstName LIKE '%' + @name + '%'
+	OR p.LastName LIKE '%' + @name + '%';
+
+RETURN
 GO
-
-
