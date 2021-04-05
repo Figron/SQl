@@ -43,9 +43,9 @@ RETURN (
 		)
 GO
 
-CREATE PROCEDURE Person.uspSearchByName @name INT
+CREATE PROCEDURE Person.uspSearchByName @name VARCHAR
 AS
-DECLARE @compare VARCHAR = '%' + @name + '%'
+DECLARE @compare VARCHAR(100) = '%' + @name + '%'
 SELECT p.BusinessEntityID
 	,p.FirstName
 	,p.LastName
