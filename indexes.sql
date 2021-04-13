@@ -1,7 +1,7 @@
 
 
 CREATE TABLE dbo.Customer (
-	CustomerID INT
+	CustomerID INT PRIMARY KEY
 	,FirstName VARCHAR(50)
 	,LastName VARCHAR(50)
 	,Email VARCHAR(100)
@@ -22,17 +22,21 @@ CREATE INDEX IX_Customer_ModifiedDate ON dbo.Customer (ModifiedDate) INCLUDE (
 GO
 
 CREATE TABLE dbo.Customer2 (
-	CustomerID INT PRIMARY KEY
-	,AccountNumber VARCHAR(10) UNIQUE CLUSTERED
+	CustomerID INT
+	,AccountNumber VARCHAR(10)
 	,FirstName VARCHAR(50)
 	,LastName VARCHAR(50)
 	,Email VARCHAR(100)
 	,ModifiedDate DATE
 	)
+CREATE CLUSTERED INDEX CI_Customer_ID ON dbo.Customer2(AccountNumber)
+
+ALTER TABLE dbo.Customer2 ADD PRIMARY KEY(CustomerID) 
 GO
 
-EXEC sp_rename CI_Customer_ID
-	,CI_CustomerID
+EXEC sp_rename N'dbo.Customer2.CI_Customer_ID'
+	,N'CI_CustomerID'
+	,N'INDEX'
 GO
 
 DROP INDEX SI_Customer_ID
